@@ -11,6 +11,8 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AnchorPoints.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SurfaceRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utensil.cs" />
   </ItemGroup>
 </Project>
