@@ -99,7 +99,7 @@ namespace IngameScript
                     Type = SpriteType.CLIP_RECT,
                     Position = (at + new Location(0, size.Y / 2)).ToSpritePosition(size) + Offset,
                     Size = size
-                }));
+                });
             }
 
             public Utensil StopClip()
