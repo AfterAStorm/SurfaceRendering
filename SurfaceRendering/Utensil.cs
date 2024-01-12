@@ -57,7 +57,7 @@ namespace IngameScript
                 );
                 Width = surface.SurfaceSize.X;
                 Height = surface.SurfaceSize.Y;
-                Center = (new Vector2(Width, Height) / 2f) + (Offset * 2);
+                Center = (new Vector2(Width, Height) / 2f) + Offset;
                 Size = new Vector2(Width, Height);
 
                 ForegroundColor = surface.ScriptForegroundColor;
@@ -97,7 +97,7 @@ namespace IngameScript
                 return DrawSprite(new MySprite()
                 {
                     Type = SpriteType.CLIP_RECT,
-                    Position = (at + new Location(0, size.Y / 2)).ToSpritePosition(size) + Offset,
+                    Position = (at).ToSpritePosition(size) + Offset + new Vector2(0, size.Y / 2),
                     Size = size
                 });
             }
@@ -124,7 +124,7 @@ namespace IngameScript
                     Type = SpriteType.TEXTURE,
                     Data = sprite,
                     Color = color,
-                    Position = at.ToSpritePosition(size) + Offset,
+                    Position = at.ToSpritePosition(size) + Offset + new Vector2(0, size.Y / 2),
                     Size = size,
                     RotationOrScale = rotation
                 });
@@ -138,7 +138,7 @@ namespace IngameScript
                     Type = SpriteType.TEXTURE,
                     Data = "SquareSimple",
                     Color = color,
-                    Position = at.ToSpritePosition(size) + Offset,
+                    Position = at.ToSpritePosition(size) + Offset + new Vector2(0, size.Y / 2),
                     Size = size,
                     RotationOrScale = rotation
                 });
@@ -147,9 +147,10 @@ namespace IngameScript
 
             public Utensil DrawRectangleBorder(Location at, Vector2 size, Color color, float thickness = 2f, float rotation = 0f)
             {
-                StartClip(at + new Location(thickness, thickness), size - new Vector2(thickness * 2, thickness * 2));
-                    DrawRectangle(at, size, color, rotation);
-                return StopClip();
+                        DrawRectangle(at - ((size.ToLocation() - new Location(0, thickness)) * new Location(0, at.AnchorPoint.Y))                                          , new Vector2(size.X, thickness), color, rotation); // top
+                        DrawRectangle(at - ((size.ToLocation() - new Location(thickness, 0)) * new Location(at.AnchorPoint.X, 0))                                          , new Vector2(thickness, size.Y), color, rotation); // left
+                        DrawRectangle(at + new Location(0, size.Y - thickness) - ((size.ToLocation() - new Location(0, thickness)) * new Location(0, at.AnchorPoint.Y))    , new Vector2(size.X, thickness), color, rotation); // bottom
+                return  DrawRectangle(at + new Location(size.X - thickness, 0) - ((size.ToLocation() - new Location(thickness, 0)) * new Location(at.AnchorPoint.X, 0))    , new Vector2(thickness, size.Y), color, rotation); // right
             }
 
             public Utensil DrawRectangleBorder(Location at, Vector2 size, float thickness = 2f, float rotation = 0f) => DrawRectangleBorder(at, size, ForegroundColor, thickness, rotation);
@@ -160,7 +161,10 @@ namespace IngameScript
                     Type = SpriteType.TEXT,
                     Data = text,
                     Color = color,
-                    Position = at.ToSpritePosition(surface.MeasureStringInPixels(new StringBuilder(text), font, scale))
+                    Position = at.ToSpritePosition(surface.MeasureStringInPixels(new StringBuilder(text), font, scale)) + (surface.MeasureStringInPixels(new StringBuilder(text), font, scale) * new Vector2(.5f, -.5f)),
+                    FontId = font,
+                    Alignment = alignment,
+                    RotationOrScale = scale
                 });
 
             #endregion
