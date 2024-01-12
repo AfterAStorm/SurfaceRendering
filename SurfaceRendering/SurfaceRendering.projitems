@@ -14,5 +14,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)SurfaceRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utensil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Vector2Extensions.cs" />
   </ItemGroup>
 </Project>
