@@ -17,7 +17,6 @@ using VRage.Game.ModAPI.Ingame;
 using VRage.Game.ModAPI.Ingame.Utilities;
 using VRage.Game.ObjectBuilders.Definitions;
 using VRageMath;
-using static IngameScript.Program;
 
 namespace IngameScript
 {
@@ -26,9 +25,9 @@ namespace IngameScript
     // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods
     internal static class Vector2Extensions
     {
-        public static Location ToLocation(this Vector2 vector, Vector2? anchor = null)
+        public static Program.Location ToLocation(this Vector2 vector, Vector2? anchor = null)
         {
-            return new Location(vector, anchor ?? AnchorPoints.TopLeft);
+            return new Program.Location(vector, anchor ?? Program.AnchorPoints.TopLeft);
         }
     }
 }
