@@ -145,14 +145,14 @@ namespace IngameScript
 
             public Utensil DrawRectangle(Location at, Vector2 size, float rotation = 0f) => DrawRectangle(at, size, ForegroundColor, rotation);
 
-            public Utensil DrawRectangleBorder(Location at, Vector2 size, Color color, float thickness = 1f, float rotation = 0f)
+            public Utensil DrawRectangleBorder(Location at, Vector2 size, Color color, float thickness = 2f, float rotation = 0f)
             {
                 StartClip(at + new Location(thickness, thickness), size - new Vector2(thickness * 2, thickness * 2));
                     DrawRectangle(at, size, color, rotation);
                 return StopClip();
             }
 
-            public Utensil DrawRectangleBorder(Location at, Vector2 size, float thickness = 1f, float rotation = 0f) => DrawRectangleBorder(at, size, ForegroundColor, thickness, rotation);
+            public Utensil DrawRectangleBorder(Location at, Vector2 size, float thickness = 2f, float rotation = 0f) => DrawRectangleBorder(at, size, ForegroundColor, thickness, rotation);
 
             public Utensil DrawScaledText(Location at, string text, float scale, Color color, string font = "White", TextAlignment alignment = TextAlignment.CENTER) =>
                 DrawSprite(new MySprite()
