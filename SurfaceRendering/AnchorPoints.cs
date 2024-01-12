@@ -24,17 +24,17 @@ namespace IngameScript
     {
         public static class AnchorPoints
         {
-            public const Vector2 TopLeft        = new Vector2(0, 0);
-            public const Vector2 TopMiddle      = new Vector2(0, 0);
-            public const Vector2 TopRight       = new Vector2(0, 0);
+            public static readonly Vector2 TopLeft        = new Vector2(0, 0);
+            public static readonly Vector2 TopMiddle      = new Vector2(0.5f, 0);
+            public static readonly Vector2 TopRight       = new Vector2(1, 0);
 
-            public const Vector2 MiddleLeft     = new Vector2(0, 0);
-            public const Vector2 Center         = new Vector2(0, 0);
-            public const Vector2 MiddleRight    = new Vector2(0, 0);
+            public static readonly Vector2 MiddleLeft     = new Vector2(0, 0.5f);
+            public static readonly Vector2 Center         = new Vector2(0.5f, 0.5f);
+            public static readonly Vector2 MiddleRight    = new Vector2(1, 0.5f);
 
-            public const Vector2 BottomLeft     = new Vector2(0, 0);
-            public const Vector2 BottomMiddle   = new Vector2(0, 0);
-            public const Vector2 BottomRight    = new Vector2(0, 0);
+            public static readonly Vector2 BottomLeft     = new Vector2(0, 1);
+            public static readonly Vector2 BottomMiddle   = new Vector2(0.5f, 1);
+            public static readonly Vector2 BottomRight    = new Vector2(1, 1);
         }
     }
 }
