@@ -20,7 +20,7 @@ using VRageMath;
 
 namespace IngameScript
 {
-    internal static class Vector2Extensions
+    internal static partial class Vector2Extensions
     {
         public static Program.Location ToLocation(this Vector2 vector, Vector2? anchor = null)
         {
