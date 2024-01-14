@@ -25,7 +25,7 @@ namespace IngameScript
         public abstract class InvalidatableSurfaceRenderer : SurfaceRenderer
         {
 
-            protected bool invalidated = false;
+            protected bool invalidated = true;
 
             public bool Invalidated => invalidated;
 
