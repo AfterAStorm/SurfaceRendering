@@ -43,7 +43,7 @@ namespace IngameScript
 
             #region # - Methods
 
-            public void Render()
+            public virtual void Render()
             {
                 using (Utensil utensil = new Utensil(surface))
                     Render(utensil);
