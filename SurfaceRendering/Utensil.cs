@@ -57,7 +57,7 @@ namespace IngameScript
                 );
                 Width = surface.SurfaceSize.X;
                 Height = surface.SurfaceSize.Y;
-                Center = (new Vector2(Width, Height) / 2f) + Offset;
+                Center = (new Vector2(Width, Height) / 2f);
                 Size = new Vector2(Width, Height);
 
                 ForegroundColor = surface.ScriptForegroundColor;
