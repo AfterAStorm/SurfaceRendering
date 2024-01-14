@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AnchorPoints.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InvalidatableSurfaceRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SurfaceRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestRenderer.cs" />
