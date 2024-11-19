@@ -132,6 +132,43 @@ namespace IngameScript
 
             public Utensil DrawSprite(Location at, Vector2 size, string sprite, float rotation = 0f) => DrawSprite(at, size, sprite, ForegroundColor, rotation);
 
+            public Utensil DrawMonoImage(Location at, Vector2 size, Color color, string[] image, bool reversed=false)
+            {
+                Vector4 offset = GetMonoImageOffsetForSize(size, image);
+
+                for (int ln = 0; ln < image.Length; ln++)
+                {
+                    string line = !reversed ? image[ln] : new string(image[ln].ToCharArray().Reverse().ToArray());
+                    DrawScaledText(at + new Location(offset.X, offset.Y + offset.W * ln), line, offset.Z, color, "Monospace", TextAlignment.LEFT);
+                }
+                //DrawScaledText(at - new Location(0, 50), offset.ToString(), 1f, Color.Red, "White", TextAlignment.CENTER);
+                //DrawScaledText(at - new Location(0, 30), $"{Surface.MeasureStringInPixels(new StringBuilder(image[0]), "Monospace", 1f).Y}", 1f, Color.Red, "White", TextAlignment.CENTER);
+                return this;
+            }
+
+
+            public Utensil DrawMonoImage(Location at, Vector2 size, Color color, string image, bool reversed = false) => DrawMonoImage(at, size, color, image.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries), reversed);
+
+            public Vector4 GetMonoImageOffsetForSize(Vector2 size, string[] image)
+            {
+                Vector2 lineSize = Surface.MeasureStringInPixels(new StringBuilder(image[0]), "Monospace", 1f);
+                float characterHeight = lineSize.Y; // pixels
+                float spacePerLineY = size.Y / image.Length; // rows
+                float fontSizeY = (spacePerLineY / characterHeight);//characterHeight / size.Y;
+                float characterWidth = lineSize.X; // pixels
+                float spacePerLineX = size.X / (image[0].Length); // columns
+                float fontSizeX = (spacePerLineX / spacePerLineX);
+
+                float fontSize = Math.Min(fontSizeX, fontSizeY);
+                lineSize = Surface.MeasureStringInPixels(new StringBuilder(image[0]), "Monospace", fontSize);
+                return new Vector4(
+                    -lineSize.X / 2,
+                    -lineSize.Y * image.Length / 2 + lineSize.Y * 2,
+                    fontSize,
+                    lineSize.Y
+                );
+            }
+
             public Utensil DrawRectangle(Location at, Vector2 size, Color color, float rotation = 0f) =>
                 DrawSprite(new MySprite
                 {
@@ -155,17 +192,23 @@ namespace IngameScript
 
             public Utensil DrawRectangleBorder(Location at, Vector2 size, float thickness = 2f, float rotation = 0f) => DrawRectangleBorder(at, size, ForegroundColor, thickness, rotation);
 
-            public Utensil DrawScaledText(Location at, string text, float scale, Color color, string font = "White", TextAlignment alignment = TextAlignment.CENTER) =>
-                DrawSprite(new MySprite()
+            public Utensil DrawScaledText(Location at, string text, float scale, Color color, string font = "White", TextAlignment alignment = TextAlignment.CENTER)
+            {
+                Vector2 pixelSize = surface.MeasureStringInPixels(new StringBuilder(text), font, scale);
+                return DrawSprite(new MySprite()
                 {
                     Type = SpriteType.TEXT,
                     Data = text,
                     Color = color,
-                    Position = at.ToSpritePosition(surface.MeasureStringInPixels(new StringBuilder(text), font, scale)) + (surface.MeasureStringInPixels(new StringBuilder(text), font, scale) * new Vector2(.5f, -.5f)),
+                    Position =
+                        at.ToSpritePosition(pixelSize)
+                        + (pixelSize * new Vector2(at.AnchorPoint.X, (at.AnchorPoint.Y == 0 ? 1 : (at.AnchorPoint.Y == .5f ? 2 : 3)) / scale * 1.5f))
+                        + (new Vector2(0, pixelSize.Y / 2 + 1)),
                     FontId = font,
                     Alignment = alignment,
                     RotationOrScale = scale
                 });
+            }
 
             #endregion
 

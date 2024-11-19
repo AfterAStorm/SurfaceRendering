@@ -52,12 +52,17 @@ namespace IngameScript
 
             #region # - Methods
 
-            public Vector2 ToSpritePosition(Vector2 size)
+            public Vector2 ToSpritePosition(Vector2 size, Vector2 anchor)
             {
                 return new Vector2(
                     position.X - (size.X * anchor.X),
                     position.Y - (size.Y * anchor.Y)
                 );
+            }
+
+            public Vector2 ToSpritePosition(Vector2 size)
+            {
+                return ToSpritePosition(size, anchor);
             }
 
             #endregion
